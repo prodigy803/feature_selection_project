@@ -10,16 +10,16 @@ from sklearn.ensemble import RandomForestClassifier
 
 
 # Your solution code here
-def rf_rfe(df=data):
+def rf_rfe(df):
     rfe = RandomForestClassifier()
-    X,y = data.iloc[:,:-1],data.iloc[:,-1]
+    X,y = df.iloc[:,:-1],df.iloc[:,-1]
 
     selector = RFE(rfe, step=1)
     selector = selector.fit(X, y)
 
-    arr_columns = np.array(data.columns)
+    arr_columns = np.array(df.columns)
     arr = np.select([selector.get_support()],[arr_columns[:-1]] )
-    return [arr[arr!=0]]
+    return arr[arr!=0].tolist()
 
 
 
